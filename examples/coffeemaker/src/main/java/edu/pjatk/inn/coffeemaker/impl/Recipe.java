@@ -6,8 +6,13 @@ import sorcer.service.ContextException;
 
 import java.io.Serializable;
 
+
 /**
- * @author   Sarah & Mike
+ *  COPYRIGHT (C) 2016 PJATK. All Rights Reserved.
+ *  Recipe class.
+ *  Solves homework assignment #2
+ *  @author PJATK
+ *  @version 1.01 2016-01-20
  */
 public class Recipe implements Serializable {
     private String name;
@@ -27,6 +32,7 @@ public class Recipe implements Serializable {
     }
     
     /**
+	 *
 	 * @return   Returns the amtChocolate.
 	 */
     public int getAmtChocolate() {
