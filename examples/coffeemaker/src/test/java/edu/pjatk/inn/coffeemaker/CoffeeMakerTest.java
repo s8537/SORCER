@@ -103,5 +103,9 @@ public class CoffeeMakerTest {
 		assertEquals(coffeeMaker.makeCoffee(espresso, 200), 150);
 	}
 */
+	@Test
+	public void checkInventory() throws Exception {
+		
+	}
 }
 
