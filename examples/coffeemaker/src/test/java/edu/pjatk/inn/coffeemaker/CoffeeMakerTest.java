@@ -27,7 +27,7 @@ public class CoffeeMakerTest {
 
 	private CoffeeMaker coffeeMaker;
 	private Inventory inventory;
-	private Recipe testCoffee;
+	private Recipe testCoffee testCoffee3 testCoffee4;
 
 	@Before
 	public void setUp() throws ContextException {
@@ -41,6 +41,25 @@ public class CoffeeMakerTest {
 		testCoffee.setAmtMilk(1);
 		testCoffee.setAmtSugar(1);
 		testCoffee.setAmtChocolate(0);
+		//
+		testCoffee3 = new Recipe();
+		testCoffee3.setName("Mocha");
+		testCoffee3.setPrice(-50);
+		testCoffee3.setAmtCoffee(6);
+		testCoffee3.setAmtMilk(1);
+		testCoffee3.setAmtSugar(1);
+		testCoffee3.setAmtChocolate(0);
+		//
+		testCoffee4 = new Recipe();
+		testCoffee4.setName("Mocha");
+		testCoffee4.setPrice(60);
+		testCoffee4.setAmtCoffee(-3);
+		testCoffee4.setAmtMilk(1);
+		testCoffee4.setAmtSugar(1);
+		testCoffee4.setAmtChocolate(0);
+
+
+
 	}
 
 	@Test
@@ -51,6 +70,16 @@ public class CoffeeMakerTest {
 	public void testAddRecipe2() {
 		assertTrue(coffeeMaker.addRecipe(testCoffee));
 		assertTrue(coffeeMaker.addRecipe(testCoffee));
+	}
+
+	@Test
+	public void testAddRecipe3() {
+		assertTrue(coffeeMaker.addRecipe(testCoffee3));
+	}
+
+	@Test
+	public void testAddRecipe4() {
+		assertTrue(coffeeMaker.addRecipe(testCoffee4));
 	}
 /*
 
