@@ -4,14 +4,23 @@ line 26
 Only three recipes may be added to the CoffeeMaker
 
 bug 2:
-
+addRecipe3
+Wynik testu jest pozytywny a powinien być negatywny bo wprowadzamy Price o wartości ujemnej.
+Trzeba znaleźć ten błąd w kodzie.
 
 bug 3:
-
+addRecipe4
+Wynik testu jest pozytywny a powinien być negatywny bo wprowadzamy Coffee o wartości ujemnej.
+Trzeba znaleźć ten błąd w kodzie.
+Znaleźć to w kodzie.
 
 bug 4:
-
+addRecipe5
+Wynik testu jest pozytywny a powinien być negatywny bo wprowadzamy Milk o wartości ujemnej.
+Trzeba znaleźć ten błąd w kodzie.
 
 bug 5:
-
+addRecipe6
+Wynik testu jest pozytywny a powinien być negatywny bo wprowadzamy Sugar o wartości ujemnej.
+Trzeba znaleźć ten błąd w kodzie.
 
