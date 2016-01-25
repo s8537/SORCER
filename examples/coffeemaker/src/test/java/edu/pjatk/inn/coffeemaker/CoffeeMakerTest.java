@@ -28,7 +28,7 @@ public class CoffeeMakerTest {
 
 	private CoffeeMaker coffeeMaker;
 	private Inventory inventory;
-	private Recipe addRecipe_t1, addRecipe_t2, addRecipe_t3, addRecipe_t4;
+	private Recipe addRecipe_t1, addRecipe_t2, addRecipe_t3, addRecipe_t4, addRecipe_t6, addRecipe_t5, addRecipe_t7;
 
 	@Before
 	public void setUp() throws ContextException {
@@ -66,6 +66,30 @@ public class CoffeeMakerTest {
 		addRecipe_t4.setAmtMilk(2);
 		addRecipe_t4.setAmtSugar(2);
 		addRecipe_t4.setAmtChocolate(3);
+
+		addRecipe_t5 = new Recipe();
+		addRecipe_t5.setName("Coffee");
+		addRecipe_t5.setPrice(50);
+		addRecipe_t5.setAmtCoffee(3);
+		addRecipe_t5.setAmtMilk(1);
+		addRecipe_t5.setAmtSugar(1);
+		addRecipe_t5.setAmtChocolate(0);
+
+		addRecipe_t6 = new Recipe();
+		addRecipe_t6.setName("macchiato");
+		addRecipe_t6.setPrice(40);
+		addRecipe_t6.setAmtCoffee(7);
+		addRecipe_t6.setAmtMilk(1);
+		addRecipe_t6.setAmtSugar(2);
+		addRecipe_t6.setAmtChocolate(0);
+
+		addRecipe_t7 = new Recipe();
+		addRecipe_t7.setName("Coffee");
+		addRecipe_t7.setPrice(50);
+		addRecipe_t7.setAmtCoffee(16);
+		addRecipe_t7.setAmtMilk(2);
+		addRecipe_t7.setAmtSugar(3);
+		addRecipe_t7.setAmtChocolate(5);
 	}
 
 	@Test
@@ -201,7 +225,7 @@ public class CoffeeMakerTest {
 
 	@Test
 	public void deleteRecipe1() {
-		coffeeMaker.addRecipe(addRecipWe_t1);
+		coffeeMaker.addRecipe(addRecipe_t1);
 		assertTrue(coffeeMaker.deleteRecipe(addRecipe_t1));
 	}
 
@@ -209,6 +233,87 @@ public class CoffeeMakerTest {
 	public void deleteRecipe2() {
 		assertFalse(coffeeMaker.deleteRecipe(addRecipe_t1));
 	}
+	//ha3
+	@Test
+	public void purchaseBeverage1(){
+		assertEquals(coffeeMaker.makeCoffee(addRecipe_t5, 60), 10);
+	}
+
+	@Test
+	public void purchaseBeverage2(){
+		assertEquals(coffeeMaker.makeCoffee(addRecipe_t5, 40), 40);
+		assertEquals(coffeeMaker.checkInventory().getCoffee(), 15);
+		assertEquals(coffeeMaker.checkInventory().getMilk(), 15);
+		assertEquals(coffeeMaker.checkInventory().getChocolate(), 15);
+
+	}
+
+	@Test
+	public void purchaseBeverage3(){
+		coffeeMaker.addRecipe(addRecipe_t7);
+		coffeeMaker.makeCoffee(addRecipe_t6, 50);
+	}
+	@Test
+	public void testAddInventory1() throws ContextException {
+		int coffeeAmount = inventory.getCoffee();
+		int milkAmount = inventory.getMilk();
+		int sugarAmount = inventory.getSugar();
+		int chocolateAmount = inventory.getChocolate();
+
+		coffeeMaker.addInventory(5, 3, 7, 2);
+
+		assertEquals(coffeeAmount + 5, inventory.getCoffee());
+		assertEquals(milkAmount + 3, inventory.getMilk());
+		assertEquals(sugarAmount + 7, inventory.getSugar());
+		assertEquals(chocolateAmount + 2, inventory.getChocolate());
+	}
+
+	@Test
+	public void testAddInventory2() throws ContextException {
+		int coffeeAmount = inventory.getCoffee();
+
+		coffeeMaker.addInventory(-1, 0, 0, 0);
+
+		assertEquals(coffeeAmount, inventory.getCoffee());
+	}
+
+	@Test
+	public void testAddInventory3() throws ContextException {
+		int coffeeAmount = inventory.getCoffee();
+		int milkAmount = inventory.getMilk();
+
+		coffeeMaker.addInventory(5, -1, 0, 0);
+
+		assertEquals(coffeeAmount, inventory.getCoffee());
+		assertEquals(milkAmount, inventory.getMilk());
+	}
+
+	@Test
+	public void testAddInventory4() throws ContextException {
+		int coffeeAmount = inventory.getCoffee();
+		int milkAmount = inventory.getMilk();
+		int sugarAmount = inventory.getSugar();
+
+		coffeeMaker.addInventory(5, 3, -1, 0);
+
+		assertEquals(coffeeAmount, inventory.getCoffee());
+		assertEquals(milkAmount, inventory.getMilk());
+		assertEquals(sugarAmount, inventory.getSugar());
+	}
+
+	@Test
+	public void testAddInventory5() throws ContextException {
+		int coffeeAmount = inventory.getCoffee();
+		int milkAmount = inventory.getMilk();
+		int sugarAmount = inventory.getSugar();
+		int chocolateAmount = inventory.getChocolate();
+
+		coffeeMaker.addInventory(5, 3, 7, -1);
+
+		assertEquals(coffeeAmount, inventory.getCoffee());
+		assertEquals(milkAmount, inventory.getMilk());
+		assertEquals(sugarAmount, inventory.getSugar());
+		assertEquals(chocolateAmount, inventory.getChocolate());
+	}
 
 }
-
