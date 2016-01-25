@@ -201,7 +201,7 @@ public class CoffeeMakerTest {
 
 	@Test
 	public void deleteRecipe1() {
-		coffeeMaker.addRecipe(addRecipe_t1);
+		coffeeMaker.addRecipe(addRecipWe_t1);
 		assertTrue(coffeeMaker.deleteRecipe(addRecipe_t1));
 	}
 
