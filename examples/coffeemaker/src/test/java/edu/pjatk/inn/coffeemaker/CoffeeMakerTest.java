@@ -28,186 +28,186 @@ public class CoffeeMakerTest {
 
 	private CoffeeMaker coffeeMaker;
 	private Inventory inventory;
-	private Recipe mocha, latte, coffee, hotChoco;
+	private Recipe addRecipe_t1, addRecipe_t2, addRecipe_t3, addRecipe_t4;
 
 	@Before
 	public void setUp() throws ContextException {
 		coffeeMaker = new CoffeeMaker();
 		inventory = coffeeMaker.checkInventory();
 
-		mocha = new Recipe();
-		mocha.setName("Mocha");
-		mocha.setPrice(60);
-		mocha.setAmtCoffee(3);
-		mocha.setAmtMilk(2);
-		mocha.setAmtSugar(2);
-		mocha.setAmtChocolate(3);
+		addRecipe_t1 = new Recipe();
+		addRecipe_t1.setName("Caffee");
+		addRecipe_t1.setPrice(50);
+		addRecipe_t1.setAmtCoffee(3);
+		addRecipe_t1.setAmtMilk(1);
+		addRecipe_t1.setAmtSugar(1);
+		addRecipe_t1.setAmtChocolate(0);
 
-		latte = new Recipe();
-		latte.setName("Latte");
-		latte.setPrice(60);
-		latte.setAmtCoffee(3);
-		latte.setAmtMilk(3);
-		latte.setAmtSugar(2);
-		latte.setAmtChocolate(0);
+		addRecipe_t2 = new Recipe();
+		addRecipe_t2.setName("Latte");
+		addRecipe_t2.setPrice(60);
+		addRecipe_t2.setAmtCoffee(3);
+		addRecipe_t2.setAmtMilk(3);
+		addRecipe_t2.setAmtSugar(2);
+		addRecipe_t2.setAmtChocolate(0);
 
-		hotChoco = new Recipe();
-		hotChoco.setName("Hot Chocolate");
-		hotChoco.setPrice(60);
-		hotChoco.setAmtCoffee(0);
-		hotChoco.setAmtMilk(2);
-		hotChoco.setAmtSugar(2);
-		hotChoco.setAmtChocolate(3);
+		addRecipe_t3 = new Recipe();
+		addRecipe_t3.setName("Hot Chocolate");
+		addRecipe_t3.setPrice(60);
+		addRecipe_t3.setAmtCoffee(0);
+		addRecipe_t3.setAmtMilk(2);
+		addRecipe_t3.setAmtSugar(2);
+		addRecipe_t3.setAmtChocolate(3);
 
-		coffee = new Recipe();
-		coffee.setName("Coffee");
-		coffee.setPrice(50);
-		coffee.setAmtCoffee(3);
-		coffee.setAmtMilk(1);
-		coffee.setAmtSugar(1);
-		coffee.setAmtChocolate(0);
+		addRecipe_t4 = new Recipe();
+		addRecipe_t4.setName("Mocha");
+		addRecipe_t4.setPrice(60);
+		addRecipe_t4.setAmtCoffee(3);
+		addRecipe_t4.setAmtMilk(2);
+		addRecipe_t4.setAmtSugar(2);
+		addRecipe_t4.setAmtChocolate(3);
 	}
 
 	@Test
 	public void addRecipe1() {
-		coffeeMaker.addRecipe(coffee);
+		coffeeMaker.addRecipe(addRecipe_t1);
 		assertEquals(coffeeMaker.getRecipeForName("Coffee").getName(), "Coffee");
 	}
 
 	@Test
 	public void addRecipe2() {
-		coffeeMaker.addRecipe(coffee);
-		assertFalse(coffeeMaker.addRecipe(coffee));
+		coffeeMaker.addRecipe(addRecipe_t1);
+		assertFalse(coffeeMaker.addRecipe(addRecipe_t1));
 	}
 
 	@Test
 	public void addRecipe3() {
-		mocha = new Recipe();
-		mocha.setName("Mocha");
-		mocha.setPrice(-50);
-		assertFalse(coffeeMaker.addRecipe(mocha));
+		addRecipe_t4 = new Recipe();
+		addRecipe_t4.setName("Mocha");
+		addRecipe_t4.setPrice(-50);
+		assertFalse(coffeeMaker.addRecipe(addRecipe_t4));
 	}
 
 	@Test
 	public void addRecipe4() {
-		mocha = new Recipe();
-		mocha.setName("Mocha");
-		mocha.setPrice(60);
-		mocha.setAmtCoffee(-3);
-		assertFalse(coffeeMaker.addRecipe(mocha));
+		addRecipe_t4 = new Recipe();
+		addRecipe_t4.setName("Mocha");
+		addRecipe_t4.setPrice(60);
+		addRecipe_t4.setAmtCoffee(-3);
+		assertFalse(coffeeMaker.addRecipe(addRecipe_t4));
 	}
 
 	@Test
 	public void addRecipe5() {
-		mocha = new Recipe();
-		mocha.setName("Mocha");
-		mocha.setPrice(60);
-		mocha.setAmtCoffee(3);
-		mocha.setAmtMilk(-2);
-		assertFalse(coffeeMaker.addRecipe(mocha));
+		addRecipe_t4 = new Recipe();
+		addRecipe_t4.setName("Mocha");
+		addRecipe_t4.setPrice(60);
+		addRecipe_t4.setAmtCoffee(3);
+		addRecipe_t4.setAmtMilk(-2);
+		assertFalse(coffeeMaker.addRecipe(addRecipe_t4));
 	}
 
 	@Test
 	public void addRecipe6() {
-		mocha = new Recipe();
-		mocha.setName("Mocha");
-		mocha.setPrice(60);
-		mocha.setAmtCoffee(3);
-		mocha.setAmtMilk(2);
-		mocha.setAmtSugar(-2);
-		assertFalse(coffeeMaker.addRecipe(mocha));
+		addRecipe_t4 = new Recipe();
+		addRecipe_t4.setName("Mocha");
+		addRecipe_t4.setPrice(60);
+		addRecipe_t4.setAmtCoffee(3);
+		addRecipe_t4.setAmtMilk(2);
+		addRecipe_t4.setAmtSugar(-2);
+		assertFalse(coffeeMaker.addRecipe(addRecipe_t4));
 	}
 
 	@Test
 	public void addRecipe7() {
-		mocha = new Recipe();
-		mocha.setName("Mocha");
-		mocha.setPrice(60);
-		mocha.setAmtCoffee(3);
-		mocha.setAmtMilk(2);
-		mocha.setAmtSugar(2);
-		mocha.setAmtChocolate(-3);
-		assertFalse(coffeeMaker.addRecipe(mocha));
+		addRecipe_t4 = new Recipe();
+		addRecipe_t4.setName("Mocha");
+		addRecipe_t4.setPrice(60);
+		addRecipe_t4.setAmtCoffee(3);
+		addRecipe_t4.setAmtMilk(2);
+		addRecipe_t4.setAmtSugar(2);
+		addRecipe_t4.setAmtChocolate(-3);
+		assertFalse(coffeeMaker.addRecipe(addRecipe_t4));
 	}
 
 
 	@Test
 	public void addRecipe8() {
-		mocha = new Recipe();
-		mocha.setName("Mocha");
-		mocha.setPrice(Integer.getInteger("a"));
-		assertFalse(coffeeMaker.addRecipe(mocha));
+		addRecipe_t4 = new Recipe();
+		addRecipe_t4.setName("Mocha");
+		addRecipe_t4.setPrice(Integer.getInteger("a"));
+		assertFalse(coffeeMaker.addRecipe(addRecipe_t4));
 	}
 
 	@Test
 	public void addRecipe9() {
-		mocha = new Recipe();
-		mocha.setName("Mocha");
-		mocha.setPrice(60);
-		mocha.setAmtCoffee(Integer.getInteger("a"));
-		assertFalse(coffeeMaker.addRecipe(mocha));
+		addRecipe_t4 = new Recipe();
+		addRecipe_t4.setName("Mocha");
+		addRecipe_t4.setPrice(60);
+		addRecipe_t4.setAmtCoffee(Integer.getInteger("a"));
+		assertFalse(coffeeMaker.addRecipe(addRecipe_t4));
 	}
 
 	@Test
 	public void addRecipe10() {
-		mocha = new Recipe();
-		mocha.setName("Mocha");
-		mocha.setPrice(60);
-		mocha.setAmtCoffee(3);
-		mocha.setAmtMilk(Integer.getInteger("a"));
-		assertFalse(coffeeMaker.addRecipe(mocha));
+		addRecipe_t4 = new Recipe();
+		addRecipe_t4.setName("Mocha");
+		addRecipe_t4.setPrice(60);
+		addRecipe_t4.setAmtCoffee(3);
+		addRecipe_t4.setAmtMilk(Integer.getInteger("a"));
+		assertFalse(coffeeMaker.addRecipe(addRecipe_t4));
 	}
 
 	@Test
 	public void addRecipe11() {
-		mocha = new Recipe();
-		mocha.setName("Mocha");
-		mocha.setPrice(60);
-		mocha.setAmtCoffee(3);
-		mocha.setAmtMilk(2);
-		mocha.setAmtSugar(Integer.getInteger("a"));
-		assertFalse(coffeeMaker.addRecipe(mocha));
+		addRecipe_t4 = new Recipe();
+		addRecipe_t4.setName("Mocha");
+		addRecipe_t4.setPrice(60);
+		addRecipe_t4.setAmtCoffee(3);
+		addRecipe_t4.setAmtMilk(2);
+		addRecipe_t4.setAmtSugar(Integer.getInteger("a"));
+		assertFalse(coffeeMaker.addRecipe(addRecipe_t4));
 	}
 
 	@Test
 	public void addRecipe12() {
-		mocha = new Recipe();
-		mocha.setName("Mocha");
-		mocha.setPrice(60);
-		mocha.setAmtCoffee(3);
-		mocha.setAmtMilk(2);
-		mocha.setAmtSugar(2);
-		mocha.setAmtChocolate(Integer.getInteger("a"));
-		assertFalse(coffeeMaker.addRecipe(mocha));
+		addRecipe_t4 = new Recipe();
+		addRecipe_t4.setName("Mocha");
+		addRecipe_t4.setPrice(60);
+		addRecipe_t4.setAmtCoffee(3);
+		addRecipe_t4.setAmtMilk(2);
+		addRecipe_t4.setAmtSugar(2);
+		addRecipe_t4.setAmtChocolate(Integer.getInteger("a"));
+		assertFalse(coffeeMaker.addRecipe(addRecipe_t4));
 	}
 
 	@Test
 	public void addRecipe13() {
-		assertTrue(coffeeMaker.addRecipe(mocha));
+		assertTrue(coffeeMaker.addRecipe(addRecipe_t4));
 	}
 
 	@Test
 	public void addRecipe14() {
-		assertTrue(coffeeMaker.addRecipe(mocha));
-		assertTrue(coffeeMaker.addRecipe(latte));
+		assertTrue(coffeeMaker.addRecipe(addRecipe_t4));
+		assertTrue(coffeeMaker.addRecipe(addRecipe_t2));
 	}
 
 	@Test
 	public void addRecipe15() {
-		assertTrue(coffeeMaker.addRecipe(mocha));
-		assertTrue(coffeeMaker.addRecipe(latte));
-		assertFalse(coffeeMaker.addRecipe(hotChoco));
+		assertTrue(coffeeMaker.addRecipe(addRecipe_t4));
+		assertTrue(coffeeMaker.addRecipe(addRecipe_t2));
+		assertFalse(coffeeMaker.addRecipe(addRecipe_t3));
 	}
 
 	@Test
 	public void deleteRecipe1() {
-		coffeeMaker.addRecipe(coffee);
-		assertTrue(coffeeMaker.deleteRecipe(coffee));
+		coffeeMaker.addRecipe(addRecipe_t1);
+		assertTrue(coffeeMaker.deleteRecipe(addRecipe_t1));
 	}
 
 	@Test
 	public void deleteRecipe2() {
-		assertFalse(coffeeMaker.deleteRecipe(coffee));
+		assertFalse(coffeeMaker.deleteRecipe(addRecipe_t1));
 	}
 
 }
