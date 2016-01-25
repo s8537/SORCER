@@ -15,6 +15,7 @@ import sorcer.service.Exertion;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static sorcer.eo.operator.*;
 
 /**
@@ -27,140 +28,187 @@ public class CoffeeMakerTest {
 
 	private CoffeeMaker coffeeMaker;
 	private Inventory inventory;
-	private Recipe testCoffee testCoffee3 testCoffee4 testCoffee5 testCoffee6;
+	private Recipe mocha, latte, coffee, hotChoco;
 
 	@Before
 	public void setUp() throws ContextException {
 		coffeeMaker = new CoffeeMaker();
 		inventory = coffeeMaker.checkInventory();
 
-		testCoffee = new Recipe();
-		testCoffee.setName("Caffee");
-		testCoffee.setPrice(50);
-		testCoffee.setAmtCoffee(6);
-		testCoffee.setAmtMilk(1);
-		testCoffee.setAmtSugar(1);
-		testCoffee.setAmtChocolate(0);
-		//
-		testCoffee3 = new Recipe();
-		testCoffee3.setName("Mocha");
-		testCoffee3.setPrice(-50);
-		testCoffee3.setAmtCoffee(6);
-		testCoffee3.setAmtMilk(1);
-		testCoffee3.setAmtSugar(1);
-		testCoffee3.setAmtChocolate(0);
-		//
-		testCoffee4 = new Recipe();
-		testCoffee4.setName("Mocha");
-		testCoffee4.setPrice(60);
-		testCoffee4.setAmtCoffee(-3);
-		testCoffee4.setAmtMilk(1);
-		testCoffee4.setAmtSugar(1);
-		testCoffee4.setAmtChocolate(0);
-		//
-		testCoffee5 = new Recipe();
-		testCoffee5.setName("Mocha");
-		testCoffee5.setPrice(60);
-		testCoffee5.setAmtCoffee(3);
-		testCoffee5.setAmtMilk(-2);
-		testCoffee5.setAmtSugar(1);
-		testCoffee5.setAmtChocolate(0);
-		//
-		testCoffee6 = new Recipe();
-		testCoffee6.setName("Mocha");
-		testCoffee6.setPrice(60);
-		testCoffee6.setAmtCoffee(3);
-		testCoffee6.setAmtMilk(2);
-		testCoffee6.setAmtSugar(-2);
-		testCoffee6.setAmtChocolate(0);
+		mocha = new Recipe();
+		mocha.setName("Mocha");
+		mocha.setPrice(60);
+		mocha.setAmtCoffee(3);
+		mocha.setAmtMilk(2);
+		mocha.setAmtSugar(2);
+		mocha.setAmtChocolate(3);
 
+		latte = new Recipe();
+		latte.setName("Latte");
+		latte.setPrice(60);
+		latte.setAmtCoffee(3);
+		latte.setAmtMilk(3);
+		latte.setAmtSugar(2);
+		latte.setAmtChocolate(0);
 
+		hotChoco = new Recipe();
+		hotChoco.setName("Hot Chocolate");
+		hotChoco.setPrice(60);
+		hotChoco.setAmtCoffee(0);
+		hotChoco.setAmtMilk(2);
+		hotChoco.setAmtSugar(2);
+		hotChoco.setAmtChocolate(3);
 
+		coffee = new Recipe();
+		coffee.setName("Coffee");
+		coffee.setPrice(50);
+		coffee.setAmtCoffee(3);
+		coffee.setAmtMilk(1);
+		coffee.setAmtSugar(1);
+		coffee.setAmtChocolate(0);
 	}
 
 	@Test
-	public void testAddRecipe1() {
-		assertTrue(coffeeMaker.addRecipe(testCoffee));
-	}
-	@Test
-	public void testAddRecipe2() {
-		assertTrue(coffeeMaker.addRecipe(testCoffee));
-		assertTrue(coffeeMaker.addRecipe(testCoffee));
+	public void addRecipe1() {
+		coffeeMaker.addRecipe(coffee);
+		assertEquals(coffeeMaker.getRecipeForName("Coffee").getName(), "Coffee");
 	}
 
 	@Test
-	public void testAddRecipe3() {
-		assertTrue(coffeeMaker.addRecipe(testCoffee3));
+	public void addRecipe2() {
+		coffeeMaker.addRecipe(coffee);
+		assertFalse(coffeeMaker.addRecipe(coffee));
 	}
 
 	@Test
-	public void testAddRecipe4() {
-		assertTrue(coffeeMaker.addRecipe(testCoffee4));
+	public void addRecipe3() {
+		mocha = new Recipe();
+		mocha.setName("Mocha");
+		mocha.setPrice(-50);
+		assertFalse(coffeeMaker.addRecipe(mocha));
 	}
 
 	@Test
-	public void testAddRecipe5() {
-		assertTrue(coffeeMaker.addRecipe(testCoffee5));
+	public void addRecipe4() {
+		mocha = new Recipe();
+		mocha.setName("Mocha");
+		mocha.setPrice(60);
+		mocha.setAmtCoffee(-3);
+		assertFalse(coffeeMaker.addRecipe(mocha));
 	}
 
 	@Test
-	public void testAddRecipe6() {
-		assertTrue(coffeeMaker.addRecipe(testCoffee6));
-	}
-/*
-
-	@Test
-	public void testContextCofee() throws ContextException {
-		assertTrue(americano.getAmtCoffee() == 7);
-	}
-/*
-	@Test
-	public void testContextMilk() throws ContextException {
-		assertTrue(espresso.getAmtMilk() == 1);
+	public void addRecipe5() {
+		mocha = new Recipe();
+		mocha.setName("Mocha");
+		mocha.setPrice(60);
+		mocha.setAmtCoffee(3);
+		mocha.setAmtMilk(-2);
+		assertFalse(coffeeMaker.addRecipe(mocha));
 	}
 
 	@Test
-	public void addRecepie() throws Exception {
-		coffeeMaker.addRecipe(mocha);
-		assertEquals(coffeeMaker.getRecipeForName("mocha").getName(), "mocha");
+	public void addRecipe6() {
+		mocha = new Recipe();
+		mocha.setName("Mocha");
+		mocha.setPrice(60);
+		mocha.setAmtCoffee(3);
+		mocha.setAmtMilk(2);
+		mocha.setAmtSugar(-2);
+		assertFalse(coffeeMaker.addRecipe(mocha));
 	}
 
 	@Test
-	public void addContextRecepie() throws Exception {
-		coffeeMaker.addRecipe(Recipe.getContext(mocha));
-		assertEquals(coffeeMaker.getRecipeForName("mocha").getName(), "mocha");
+	public void addRecipe7() {
+		mocha = new Recipe();
+		mocha.setName("Mocha");
+		mocha.setPrice(60);
+		mocha.setAmtCoffee(3);
+		mocha.setAmtMilk(2);
+		mocha.setAmtSugar(2);
+		mocha.setAmtChocolate(-3);
+		assertFalse(coffeeMaker.addRecipe(mocha));
+	}
+
+
+	@Test
+	public void addRecipe8() {
+		mocha = new Recipe();
+		mocha.setName("Mocha");
+		mocha.setPrice(Integer.getInteger("a"));
+		assertFalse(coffeeMaker.addRecipe(mocha));
 	}
 
 	@Test
-	public void addServiceRecepie() throws Exception {
-		Exertion cmt = task(sig("addRecipe", coffeeMaker),
-						context(parameterTypes(Recipe.class), args(espresso),
-							result("recipe/added")));
-
-		logger.info("isAdded: " + value(cmt));
-		assertEquals(coffeeMaker.getRecipeForName("espresso").getName(), "espresso");
+	public void addRecipe9() {
+		mocha = new Recipe();
+		mocha.setName("Mocha");
+		mocha.setPrice(60);
+		mocha.setAmtCoffee(Integer.getInteger("a"));
+		assertFalse(coffeeMaker.addRecipe(mocha));
 	}
 
 	@Test
-	public void addRecipes() throws Exception {
-		coffeeMaker.addRecipe(mocha);
-		coffeeMaker.addRecipe(macchiato);
-		coffeeMaker.addRecipe(americano);
-
-		assertEquals(coffeeMaker.getRecipeForName("mocha").getName(), "mocha");
-		assertEquals(coffeeMaker.getRecipeForName("macchiato").getName(), "macchiato");
-		assertEquals(coffeeMaker.getRecipeForName("americano").getName(), "americano");
+	public void addRecipe10() {
+		mocha = new Recipe();
+		mocha.setName("Mocha");
+		mocha.setPrice(60);
+		mocha.setAmtCoffee(3);
+		mocha.setAmtMilk(Integer.getInteger("a"));
+		assertFalse(coffeeMaker.addRecipe(mocha));
 	}
 
 	@Test
-	public void makeCoffee() throws Exception {
-		coffeeMaker.addRecipe(espresso);
-		assertEquals(coffeeMaker.makeCoffee(espresso, 200), 150);
+	public void addRecipe11() {
+		mocha = new Recipe();
+		mocha.setName("Mocha");
+		mocha.setPrice(60);
+		mocha.setAmtCoffee(3);
+		mocha.setAmtMilk(2);
+		mocha.setAmtSugar(Integer.getInteger("a"));
+		assertFalse(coffeeMaker.addRecipe(mocha));
 	}
-*/
+
 	@Test
-	public void checkInventory() throws Exception {
-		
+	public void addRecipe12() {
+		mocha = new Recipe();
+		mocha.setName("Mocha");
+		mocha.setPrice(60);
+		mocha.setAmtCoffee(3);
+		mocha.setAmtMilk(2);
+		mocha.setAmtSugar(2);
+		mocha.setAmtChocolate(Integer.getInteger("a"));
+		assertFalse(coffeeMaker.addRecipe(mocha));
 	}
+
+	@Test
+	public void addRecipe13() {
+		assertTrue(coffeeMaker.addRecipe(mocha));
+	}
+
+	@Test
+	public void addRecipe14() {
+		assertTrue(coffeeMaker.addRecipe(mocha));
+		assertTrue(coffeeMaker.addRecipe(latte));
+	}
+
+	@Test
+	public void addRecipe15() {
+		assertTrue(coffeeMaker.addRecipe(mocha));
+		assertTrue(coffeeMaker.addRecipe(latte));
+		assertFalse(coffeeMaker.addRecipe(hotChoco));
+	}
+
+	@Test
+	public void deleteRecipe1() {
+		coffeeMaker.addRecipe(coffee);
+		assertTrue(coffeeMaker.deleteRecipe(coffee));
+	}
+
+	@Test
+	public void deleteRecipe2() {
+		assertFalse(coffeeMaker.deleteRecipe(coffee));
+	}
+
 }
 
