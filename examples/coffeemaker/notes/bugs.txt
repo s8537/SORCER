@@ -1,0 +1,21 @@
+bug 1:
+CofeeMaker.java
+line 26
+Only three recipes may be added to the CoffeeMaker
+
+bug 2:
+addRecipe3
+Wynik testu jest pozytywny a powinien być negatywny bo wprowadzamy Price o wartości ujemnej.
+
+bug 3:
+addRecipe4
+Wynik testu jest pozytywny a powinien być negatywny bo wprowadzamy Coffee o wartości ujemnej.
+
+bug 4:
+addRecipe5
+Wynik testu jest pozytywny a powinien być negatywny bo wprowadzamy Milk o wartości ujemnej.
+
+bug 5:
+addRecipe6
+Wynik testu jest pozytywny a powinien być negatywny bo wprowadzamy Sugar o wartości ujemnej.
+

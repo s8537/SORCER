@@ -18,6 +18,7 @@
  * Deployment configuration for Sorcer
  *
  * @author Dennis Reedy
+ *
  */
 import org.rioproject.RioVersion
 import sorcer.util.SorcerEnv
