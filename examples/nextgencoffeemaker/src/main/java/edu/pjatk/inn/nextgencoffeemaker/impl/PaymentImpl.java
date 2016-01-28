@@ -19,16 +19,17 @@ public class PaymentImpl implements Payment {
 
     @Override
     public Context payment(Context context) throws RemoteException, ContextException {
-        Integer flatRate = 60;
-        context.putValue("delivery/cost", flatRate);
-        if (context.getValue("delivery/paid") != null) {
-            context.putValue("deliver/change", ((Integer) context.getValue("delivery/paid")) - flatRate);
+        Integer amount = 0;
+
+        if (context.getValue("payment/amount") != null) {
+            amount = (Integer) context.getValue("payment/amount");
+            context.putValue("payment/paid", true);
+            context.putValue("payment/method", "mobile");
         }
 
         if (context.getReturnPath() != null) {
-            context.setReturnValue(flatRate);
+            context.setReturnValue(amount);
         }
-        return context;
 
         return context;
     }

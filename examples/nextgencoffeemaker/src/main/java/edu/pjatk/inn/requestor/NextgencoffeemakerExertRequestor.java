@@ -54,14 +54,18 @@ public class NextgencoffeemakerExertRequestor extends ExertRequestor {
     private Exertion createExertion() throws Exception {
         Task coffee = task("coffee", sig("makeCoffee", NextgencoffeeService.class), context(
                 ent("recipe/name", "espresso"),
-                ent("coffee/paid", 120),
+                ent("coffee/paid", 0),
                 ent("coffee/change"),
+                ent("payment/paid"),
+                ent("payment/method"),
                 ent("recipe", getEspressoContext())));
 
         Task payment = task("payment", sig("payment", Payment.class), context(
-                ent("payment/paid")));
+                ent("amount", 120),
+                ent("method", "mobile"),
+                ent("paid")));
 
-        Job payCoffee = job(coffee, payment,
+        Job payCoffee = job(payment, coffee,
                 pipe(outPoint(payment, "payment/paid"), inPoint(coffee, "coffee/paid")));
 
         return payCoffee;
@@ -78,7 +82,7 @@ public class NextgencoffeemakerExertRequestor extends ExertRequestor {
                         result("coffee$", inPaths("recipe/name")))),
                 srv(sig("payment", Payment.class,
                         result("payment$", inPaths("amount", "paid")))));
-//        add(mdl, ent("change$", invoker("paid$ - (coffee$ + delivery$)", ents("paid$", "coffee$", "delivery$"))));
+
         dependsOn(mdl, ent("change$", "makeCoffee"), ent("change$", "pay"));
         responseUp(mdl, "makeCoffee", "pay", "change$", "paid$");
 
