@@ -56,6 +56,7 @@ include 'examples:service'
 include 'examples:exchange'
 include 'examples:coffeemaker'
 include 'examples:greeter'
+include 'examples:nextgencoffeemaker'
 
 include 'distribution'
 

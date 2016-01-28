@@ -1,0 +1,17 @@
+#!/usr/bin/env nsh
+
+@Codebase(group='org.sorcer', module='nextgencoffeemaker', version='${sorcer.version}', classifier='dl')
+import edu.pjatk.inn.nextgencoffeemaker.CoffeeService
+import edu.pjatk.inn.nextgencoffeemaker.Payment
+
+Task mobileCoffee = task("coffee", sig("makeCoffee", NextgencoffeeService.class), context(
+        ent("recipe/name", "espresso"),
+        ent("coffee/paid"),
+        ent("coffee/change"),
+        ent("recipe", getEspressoContext())));
+
+Task payment = task("payment", sig("pay", Payment.class), context(
+        ent("payment/amount", "120")));
+
+job(mobileCoffee, payment,
+        pipe(outPoint(mobileCoffee, "coffee/paid"), inPoint("coffee/paid")));
