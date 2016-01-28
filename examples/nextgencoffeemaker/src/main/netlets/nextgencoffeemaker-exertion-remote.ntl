@@ -2,18 +2,16 @@
 
 @Codebase(group='org.sorcer', module='nextgencoffeemaker', version='${sorcer.version}', classifier='dl')
 import edu.pjatk.inn.nextgencoffeemaker.CoffeeService
-import edu.pjatk.inn.nextgencoffeemaker.Delivery
+import edu.pjatk.inn.nextgencoffeemaker.Payment
 
-Task coffee = task("coffee", sig("makeCoffee", NextgencoffeeService.class), context(
+Task mobileCoffee = task("coffee", sig("makeCoffee", NextgencoffeeService.class), context(
         ent("recipe/name", "espresso"),
-        ent("coffee/paid", 120),
+        ent("coffee/paid"),
         ent("coffee/change"),
         ent("recipe", getEspressoContext())));
 
-Task delivery = task("delivery", sig("deliver", Delivery.class), context(
-        ent("location", "PJATK"),
-        ent("delivery/paid"),
-        ent("room", "101")));
+Task payment = task("payment", sig("pay", Payment.class), context(
+        ent("payment/amount", "120")));
 
-job(coffee, delivery,
-        pipe(outPoint(coffee, "coffee/change"), inPoint(delivery, "delivery/paid")));
+job(mobileCoffee, payment,
+        pipe(outPoint(mobileCoffee, "coffee/paid"), inPoint("coffee/paid")));

@@ -2,6 +2,7 @@ package edu.pjatk.inn.requestor;
 
 import edu.pjatk.inn.nextgencoffeemaker.NextgencoffeeService;
 import edu.pjatk.inn.nextgencoffeemaker.Delivery;
+import edu.pjatk.inn.nextgencoffeemaker.Payment;
 import sorcer.core.requestor.ExertRequestor;
 import sorcer.service.*;
 import sorcer.service.modeling.Model;
@@ -57,36 +58,31 @@ public class NextgencoffeemakerExertRequestor extends ExertRequestor {
                 ent("coffee/change"),
                 ent("recipe", getEspressoContext())));
 
-        Task delivery = task("delivery", sig("deliver", Delivery.class), context(
-                ent("location", "PJATK"),
-                ent("delivery/paid"),
-                ent("room", "101")));
+        Task payment = task("payment", sig("payment", Payment.class), context(
+                ent("payment/paid")));
 
-        Job drinkCoffee = job(coffee, delivery,
-                pipe(outPoint(coffee, "coffee/change"), inPoint(delivery, "delivery/paid")));
+        Job payCoffee = job(coffee, payment,
+                pipe(outPoint(payment, "payment/paid"), inPoint(coffee, "coffee/paid")));
 
-        return drinkCoffee;
+        return payCoffee;
     }
 
     private Model createModel() throws Exception {
         exert(getRecipeTask());
 
-        // order espresso with delivery
         Model mdl = model(
                 ent("recipe/name", "espresso"),
                 ent("paid$", 120),
-                ent("location", "PJATK"),
-                ent("room", "101"),
 
                 srv(sig("makeCoffee", NextgencoffeeService.class,
                         result("coffee$", inPaths("recipe/name")))),
-                srv(sig("deliver", Delivery.class,
-                        result("delivery$", inPaths("location", "room")))));
-//				ent("change$", invoker("paid$ - (coffee$ + delivery$)", ents("paid$", "coffee$", "delivery$"))));
+                srv(sig("payment", Payment.class,
+                        result("payment$", inPaths("amount", "paid")))));
+//        add(mdl, ent("change$", invoker("paid$ - (coffee$ + delivery$)", ents("paid$", "coffee$", "delivery$"))));
+        dependsOn(mdl, ent("change$", "makeCoffee"), ent("change$", "pay"));
+        responseUp(mdl, "makeCoffee", "pay", "change$", "paid$");
 
-        add(mdl, ent("change$", invoker("paid$ - (coffee$ + delivery$)", ents("paid$", "coffee$", "delivery$"))));
-        dependsOn(mdl, ent("change$", "makeCoffee"), ent("change$", "deliver"));
-        responseUp(mdl, "makeCoffee", "deliver", "change$", "paid$");
+
 
         return mdl;
     }
