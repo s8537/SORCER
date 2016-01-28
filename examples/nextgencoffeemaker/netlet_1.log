@@ -1,0 +1,42 @@
+INFO  21:22:54.454 sorcer.core.requestor.ExertRequestor - Not able to load requestor properties
+INFO  21:22:55.128 sorcer.core.requestor.ExertRequestor - >>>>>>>>>> Input context:
+Context name: job-3
+
+  subject: job/data/context:job-3
+
+Context name: unknown1
+  coffee/change = none
+  coffee/paid = 0
+  payment/method = none
+  payment/paid = none
+  recipe = Context name: unknown0
+  amtChocolate = 0
+  amtCoffee = 6
+  amtMilk = 0
+  amtSugar = 1
+  name = espresso
+  price = 50
+ scope: [coffee/paid, payment/method, coffee/change, recipe, recipe/name, payment/paid]
+  recipe/name = espresso
+  job-3/coffee/coffee/change = none
+  job-3/coffee/coffee/paid = 0
+  job-3/coffee/payment/method = none
+  job-3/coffee/payment/paid = none
+  job-3/coffee/recipe = Context name: unknown0
+  amtChocolate = 0
+  amtCoffee = 6
+  amtMilk = 0
+  amtSugar = 1
+  name = espresso
+  price = 50
+ scope: [coffee/paid, payment/method, coffee/change, recipe, recipe/name, payment/paid]
+  job-3/coffee/recipe/name = espresso
+Context name: unknown2
+  amount = 120
+  method = mobile
+  paid = none
+  job-3/payment/amount = 120
+  job-3/payment/method = mobile
+  job-3/payment/paid = none
+INFO  21:22:55.803 sorcer.util.ServiceAccessor - Lookup name: null, type: sorcer.core.provider.Jobber, timeout: 3000, filter: null
+INFO  21:22:56.599 sorcer.util.ServiceAccessor - Found [1] instances of name: null, type: sorcer.core.provider.Jobber
