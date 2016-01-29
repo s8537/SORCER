@@ -3,6 +3,7 @@ package edu.pjatk.inn.requestor;
 import edu.pjatk.inn.nextgencoffeemaker.NextgencoffeeService;
 import edu.pjatk.inn.nextgencoffeemaker.Delivery;
 import edu.pjatk.inn.nextgencoffeemaker.Payment;
+import edu.pjatk.inn.nextgencoffeemaker.RMA;
 import sorcer.core.requestor.ExertRequestor;
 import sorcer.service.*;
 import sorcer.service.modeling.Model;
@@ -60,13 +61,17 @@ public class NextgencoffeemakerExertRequestor extends ExertRequestor {
                 ent("payment/method"),
                 ent("recipe", getEspressoContext())));
 
-        Task payment = task("payment", sig("payment", Payment.class), context(
-                ent("amount", 120),
-                ent("method", "mobile"),
-                ent("paid")));
+//        Task payment = task("payment", sig("payment", Payment.class), context(
+//                ent("amount", 120),
+//                ent("method", "mobile"),
+//                ent("paid")));
 
-        Job payCoffee = job(payment, coffee,
-                pipe(outPoint(payment, "payment/paid"), inPoint(coffee, "coffee/paid")));
+        Task rma = task("rma", sig("rma", RMA.class), context(
+                ent("description", "Coffee is lacking milk")
+        ));
+
+        Job payCoffee = job(rma, coffee,
+                pipe(outPoint(rma, "rma/result"), inPoint(coffee, "coffee/name")));
 
         return payCoffee;
     }
@@ -81,7 +86,9 @@ public class NextgencoffeemakerExertRequestor extends ExertRequestor {
                 srv(sig("makeCoffee", NextgencoffeeService.class,
                         result("coffee$", inPaths("recipe/name")))),
                 srv(sig("payment", Payment.class,
-                        result("payment$", inPaths("amount", "paid")))));
+                        result("payment$", inPaths("amount", "paid")))),
+                srv(sig("rma", RMA.class,
+                        result("rma$", inPaths("description", "result")))));
 
         dependsOn(mdl, ent("change$", "makeCoffee"), ent("change$", "pay"));
         responseUp(mdl, "makeCoffee", "pay", "change$", "paid$");
